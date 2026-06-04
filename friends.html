@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌸 Become My Friend, Prapti 🎀🪐❤️ 🌸</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    overflow:hidden;
+    height:100vh;
+    /* --- MAIN SCREEN BACKGROUND IMAGE --- */
+    background: linear-gradient(rgba(255, 214, 231, 0.7), rgba(255, 122, 168, 0.7)), url('main-bg.jpg') no-repeat center center/cover;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    position:relative;
+    transition: background 0.5s ease;
+}
+
+.container{
+    z-index:10;
+    max-width:90%;
+    padding:20px;
+}
+
+.sticker{
+    font-size:80px;
+    animation:bounce 1.5s infinite;
+    margin-bottom:15px;
+}
+
+@keyframes bounce{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-20px);}
+}
+
+h1{
+    font-family:'Dancing Script',cursive;
+    font-size:3rem;
+    color:white;
+    text-shadow:2px 2px 10px rgba(0,0,0,.3);
+    margin-bottom:15px;
+}
+
+.subtitle{
+    font-style:italic;
+    color:white;
+    font-size:1.05rem;
+    margin-bottom:20px;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+}
+
+.closing{
+    color:white;
+    font-size:1.1rem;
+    margin-bottom:30px;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+}
+
+.button-row{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:40px;
+}
+
+.yes-btn{
+    padding:16px 42px;
+    border:none;
+    border-radius:999px;
+    background:linear-gradient(45deg,#ff1f4b,#ff5b7f);
+    color:white;
+    font-size:1.2rem;
+    font-weight:700;
+    cursor:pointer;
+    transition:.3s;
+    box-shadow:0 0 20px rgba(255,0,70,.5);
+}
+
+.yes-btn:hover{
+    transform:scale(1.08);
+    box-shadow:0 0 35px rgba(255,0,70,.8);
+}
+
+.no-btn{
+    padding:12px 26px;
+    border:2px solid #ff3f6b;
+    background:white;
+    color:#ff3f6b;
+    border-radius:999px;
+    font-size:1rem;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.no-btn:hover{
+    transform:scale(1.05);
+}
+
+.heart{
+    position:fixed;
+    bottom:-50px;
+    pointer-events:none;
+    animation:floatUp linear infinite;
+}
+
+@keyframes floatUp{
+    0%{
+        transform:translateY(0);
+        opacity:0;
+    }
+    20%{
+        opacity:1;
+    }
+    80%{
+        opacity:1;
+    }
+    100%{
+        transform:translateY(-120vh);
+        opacity:0;
+    }
+}
+
+.celebration{
+    position:fixed;
+    inset:0;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    /* --- CELEBRATION SCREEN BACKGROUND IMAGE --- */
+    background: linear-gradient(rgba(255, 179, 207, 0.7), rgba(255, 111, 163, 0.7)), url('celebration-bg.jpg') no-repeat center center/cover;
+    z-index:999;
+    color:white;
+}
+
+.celebration h2{
+    font-size:4rem;
+    animation:pulse 1s infinite;
+    text-shadow: 2px 2px 15px rgba(0,0,0,0.3);
+}
+
+@keyframes pulse{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.15);}
+}
+
+/* --- GIF WRAPPER (No rotation animation) --- */
+.gif-container {
+    max-width: 200px;
+    margin: 20px 0;
+}
+
+.gif-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+}
+
+.celebration p{
+    font-size:1.4rem;
+    padding:0 20px;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+}
+
+.confetti{
+    position:fixed;
+    width:10px;
+    height:10px;
+    top:-20px;
+    animation:fall linear forwards;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(120vh) rotate(720deg);
+        opacity:0;
+    }
+}
+
+@media(max-width:600px){
+    h1{
+        font-size:2.2rem;
+    }
+
+    .celebration h2{
+        font-size:2.3rem;
+    }
+
+    .gif-container{
+        max-width:150px;
+    }
+
+    .celebration p{
+        font-size:1.1rem;
+    }
+}
+</style>
+</head>
+<body>
+
+<audio id="yesSound" src="yesSound.mp3" loop></audio>
+<audio id="noSound" src="noSound.mp3"></audio>
+
+<div id="hearts"></div>
+
+<div class="container" id="proposal">
+    <div class="sticker">💅</div>
+    <h1>
+        HEY 💌 Prapti 🎀🪐 💕<br>
+        will you be my friend? ❤️
+    </h1>
+    <div class="subtitle">
+        ✨ Let's create beautiful conversations and good vibes together. ❤️
+    </div>
+    <div class="closing">
+       💕✨ Please accept my request to become friends, Cutie. 🎀❤️🌷
+    </div>
+    <div class="button-row">
+        <button class="yes-btn" id="yesBtn">Yes ❤️</button>
+        <button class="no-btn" id="noBtn">No</button>
+    </div>
+</div>
+
+<div class="celebration" id="celebration">
+    <h2>💞 Thankyou prapti🎀🪐 cuite 😊❤️❤️!! 💞</h2>
+    
+    <div class="gif-container">
+        <img src="celebration.gif" alt="Celebration GIF">
+    </div>
+
+    <p>🎀🌷 BTW, thank you for becoming my friend, Cutie. ❤️
+
+You just made my day a little brighter. ✨🪐💕
+
+Looking forward to lots of fun chats and beautiful memories. 🌸💌<br>~ Himanshu ❤️</p>
+</div>
+
+<script>
+// --- AUDIO ELEMENTS ---
+const yesSound = document.getElementById("yesSound");
+const noSound = document.getElementById("noSound");
+
+// No button custom sound play karne ke liye function
+function playNoSound() {
+    noSound.currentTime = 0; // Sound ko suru se start karega har baar touch/hover pe
+    noSound.play().catch(err => console.log("Audio play blocked:", err));
+}
+
+// --- FLOATING HEARTS ---
+const heartsContainer = document.getElementById("hearts");
+
+for(let i=0;i<15;i++){
+    const heart=document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="❤️";
+
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.fontSize=(Math.random()*30+15)+"px";
+    heart.style.animationDuration=(Math.random()*8+6)+"s";
+    heart.style.animationDelay=(Math.random()*5)+"s";
+
+    heartsContainer.appendChild(heart);
+}
+
+// --- NO BUTTON RUN AWAY LOGIC ---
+const noBtn=document.getElementById("noBtn");
+const yesBtn=document.getElementById("yesBtn");
+
+const messages=[
+"Nope, not an option!",
+"Try again!",
+"You sure about that?",
+"Not happening!",
+"Think again!"
+];
+
+let msgIndex=0;
+
+function moveNoButton(){
+    // Har baar jab user run away button ko trigger karega -> Custom sound chalega
+    playNoSound();
+
+    const yesRect=yesBtn.getBoundingClientRect();
+    noBtn.style.position="fixed";
+
+    let x,y;
+    let safe=false;
+
+    while(!safe){
+        x=Math.random()*(window.innerWidth-180);
+        y=Math.random()*(window.innerHeight-80);
+
+        if(
+            x > yesRect.right + 80 ||
+            x + 150 < yesRect.left - 80 ||
+            y > yesRect.bottom + 80 ||
+            y + 60 < yesRect.top - 80
+        ){
+            safe=true;
+        }
+    }
+
+    noBtn.style.left=x+"px";
+    noBtn.style.top=y+"px";
+
+    noBtn.textContent=messages[msgIndex];
+    msgIndex=(msgIndex+1)%messages.length;
+}
+
+noBtn.addEventListener("click",moveNoButton);
+noBtn.addEventListener("mouseover",moveNoButton);
+
+noBtn.addEventListener("touchstart",(e)=>{
+    e.preventDefault();
+    moveNoButton();
+});
+
+// --- YES BUTTON CLICK ---
+document.getElementById("yesBtn").addEventListener("click",()=>{
+    // Yes sound trigger hoga
+    yesSound.play().catch(err => console.log("Audio play blocked:", err));
+
+    // UI screen change
+    document.getElementById("proposal").style.display="none";
+    heartsContainer.innerHTML="";
+    
+    // Naya background screen trigger hoga (body styling reset)
+    document.body.style.background = "linear-gradient(rgba(255, 179, 207, 0.7), rgba(255, 111, 163, 0.7)), url('celebration-bg.jpg') no-repeat center center/cover";
+    
+    document.getElementById("celebration").style.display="flex";
+    createConfetti();
+});
+
+// --- CONFETTI EFFECT ---
+function createConfetti(){
+    const colors=[
+        "#ff0000","#00ff00","#0000ff",
+        "#ffff00","#ff00ff","#00ffff",
+        "#ff8800","#ff1493","#8a2be2",
+        "#00cc66"
+    ];
+
+    for(let i=0;i<120;i++){
+        const confetti=document.createElement("div");
+        confetti.className="confetti";
+        confetti.style.left=Math.random()*100+"vw";
+        confetti.style.background=colors[Math.floor(Math.random()*colors.length)];
+        confetti.style.width=(Math.random()*8+6)+"px";
+        confetti.style.height=(Math.random()*12+6)+"px";
+        confetti.style.animationDuration=(Math.random()*3+2)+"s";
+
+        document.body.appendChild(confetti);
+    }
+}
+</script>
+
+</body>
+</html>
