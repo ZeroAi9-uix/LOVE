@@ -18,12 +18,14 @@
 body{
     overflow:hidden;
     height:100vh;
-    background:linear-gradient(135deg,#ffd6e7,#ff7aa8);
+    /* --- MAIN SCREEN BACKGROUND IMAGE --- */
+    background: linear-gradient(rgba(255, 214, 231, 0.7), rgba(255, 122, 168, 0.7)), url('main-bg.jpg') no-repeat center center/cover;
     display:flex;
     justify-content:center;
     align-items:center;
     text-align:center;
     position:relative;
+    transition: background 0.5s ease;
 }
 
 .container{
@@ -47,7 +49,7 @@ h1{
     font-family:'Dancing Script',cursive;
     font-size:3rem;
     color:white;
-    text-shadow:2px 2px 10px rgba(0,0,0,.15);
+    text-shadow:2px 2px 10px rgba(0,0,0,.3);
     margin-bottom:15px;
 }
 
@@ -56,12 +58,14 @@ h1{
     color:white;
     font-size:1.05rem;
     margin-bottom:20px;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
 }
 
 .closing{
     color:white;
     font-size:1.1rem;
     margin-bottom:30px;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
 }
 
 .button-row{
@@ -135,7 +139,8 @@ h1{
     justify-content:center;
     align-items:center;
     flex-direction:column;
-    background:linear-gradient(135deg,#ffb3cf,#ff6fa3);
+    /* --- CELEBRATION SCREEN BACKGROUND IMAGE --- */
+    background: linear-gradient(rgba(255, 179, 207, 0.7), rgba(255, 111, 163, 0.7)), url('celebration-bg.jpg') no-repeat center center/cover;
     z-index:999;
     color:white;
 }
@@ -143,6 +148,7 @@ h1{
 .celebration h2{
     font-size:4rem;
     animation:pulse 1s infinite;
+    text-shadow: 2px 2px 15px rgba(0,0,0,0.3);
 }
 
 @keyframes pulse{
@@ -150,20 +156,22 @@ h1{
     50%{transform:scale(1.15);}
 }
 
-.spin{
-    font-size:5rem;
-    margin:15px 0;
-    animation:spin 2s linear infinite;
+/* --- GIF WRAPPER (No rotation animation) --- */
+.gif-container {
+    max-width: 200px;
+    margin: 20px 0;
 }
 
-@keyframes spin{
-    from{transform:rotate(0);}
-    to{transform:rotate(360deg);}
+.gif-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
 }
 
 .celebration p{
     font-size:1.4rem;
     padding:0 20px;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
 }
 
 .confetti{
@@ -190,8 +198,8 @@ h1{
         font-size:2.3rem;
     }
 
-    .spin{
-        font-size:4rem;
+    .gif-container{
+        max-width:150px;
     }
 
     .celebration p{
@@ -202,57 +210,49 @@ h1{
 </head>
 <body>
 
-<audio id="bgMusic" src="tummereho.mp3" loop></audio>
+<audio id="yesSound" src="yesSound.mp3"></audio>
+<audio id="noSound" src="noSound.mp3"></audio>
 
 <div id="hearts"></div>
 
 <div class="container" id="proposal">
-
     <div class="sticker">💅</div>
-
     <h1>
         Give me maafi<br>
         Mieee, TATA NAMAK
     </h1>
-
     <div class="subtitle">
         Suriye very much , really I can do mistake
     </div>
-
     <div class="closing">
         Tata Namak, please accept miee sorry 
-        
     </div>
-
     <div class="button-row">
         <button class="yes-btn" id="yesBtn">Yes ❤️</button>
         <button class="no-btn" id="noBtn">No</button>
     </div>
-
 </div>
 
 <div class="celebration" id="celebration">
     <h2>💞 Thinkyoiu Tata namak!! 💞</h2>
-    <div class="spin">🙂</div>
+    
+    <div class="gif-container">
+        <img src="celebration.gif" alt="Celebration GIF">
+    </div>
+
     <p>btw if you can agree so we can became friends<br>~Raj Dalle</p>
 </div>
 
 <script>
-// --- AUDIO CONTROL LOGIC ---
-const bgMusic = document.getElementById("bgMusic");
-let isMusicPlaying = false;
+// --- AUDIO ELEMENTS ---
+const yesSound = document.getElementById("yesSound");
+const noSound = document.getElementById("noSound");
 
-// Safe function jo bina kisi glitch ke music play karegi
-function playMusic() {
-    if (!isMusicPlaying) {
-        bgMusic.play().then(() => {
-            isMusicPlaying = true;
-        }).catch(error => {
-            console.log("Autoplay block handle kiya:", error);
-        });
-    }
+// No button custom sound play karne ke liye function
+function playNoSound() {
+    noSound.currentTime = 0; // Sound ko suru se start karega har baar touch/hover pe
+    noSound.play().catch(err => console.log("Audio play blocked:", err));
 }
-
 
 // --- FLOATING HEARTS ---
 const heartsContainer = document.getElementById("hearts");
@@ -285,8 +285,8 @@ const messages=[
 let msgIndex=0;
 
 function moveNoButton(){
-    // Jaise hi user No button se interact karega, gaana chalna start ho jayega
-    playMusic();
+    // Har baar jab user run away button ko trigger karega -> Custom sound chalega
+    playNoSound();
 
     const yesRect=yesBtn.getBoundingClientRect();
     noBtn.style.position="fixed";
@@ -325,11 +325,16 @@ noBtn.addEventListener("touchstart",(e)=>{
 
 // --- YES BUTTON CLICK ---
 document.getElementById("yesBtn").addEventListener("click",()=>{
-    // Agar gaana abhi tak start nahi hua, toh Yes par click karte hi bajega
-    playMusic();
+    // Yes sound trigger hoga
+    yesSound.play().catch(err => console.log("Audio play blocked:", err));
 
+    // UI screen change
     document.getElementById("proposal").style.display="none";
     heartsContainer.innerHTML="";
+    
+    // Naya background screen trigger hoga (body styling reset)
+    document.body.style.background = "linear-gradient(rgba(255, 179, 207, 0.7), rgba(255, 111, 163, 0.7)), url('celebration-bg.jpg') no-repeat center center/cover";
+    
     document.getElementById("celebration").style.display="flex";
     createConfetti();
 });
